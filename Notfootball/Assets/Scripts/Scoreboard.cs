@@ -6,7 +6,7 @@ public class Scoreboard : MonoBehaviour {
 
 	Text blueScore, redScore;
 	int blueGoals, redGoals;
-	bool gameIsOn;
+	bool playersCanMove;
 
 	// Use this for initialization
 	void Start () {
@@ -18,20 +18,22 @@ public class Scoreboard : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		gameIsOn = GetComponent<Timer>().GetGameIsOn ();
+		playersCanMove = GetComponent<Timer>().GetPlayersCanMove ();
 	}
 
 	public void BlueTeamScores() {
-		if (gameIsOn) {
+		if (playersCanMove) {
 			blueGoals++;
 			ChangeScore ();
+			GetComponent<Timer> ().StartCountdown ();
 		}
 	}
 
 	public void RedTeamScores() {
-		if (gameIsOn) {
+		if (playersCanMove) {
 			redGoals++;
 			ChangeScore ();
+			GetComponent<Timer> ().StartCountdown ();
 		}
 	}
 

@@ -18,18 +18,12 @@ public class GoalChecker : MonoBehaviour {
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject.tag == "Ball") {
 			if (gameObject.tag == "GoalP1") {
-				print ("blueTeamScore");
 				score.BlueTeamScores();
-
 			}
 
 			if (gameObject.tag == "GoalP2") {
-				print ("redTeamScore");
 				score.RedTeamScores();
-
 			}
 		}
-
-		print ("blaa");
 	}
 }
