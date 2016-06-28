@@ -45,4 +45,8 @@ public class Timer : MonoBehaviour {
 			gameIsOn = false;
 		}
 	}
+
+	public bool GetGameIsOn() {
+		return gameIsOn;
+	}
 }
