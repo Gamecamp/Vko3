@@ -10,24 +10,16 @@ public class PlayerInput : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		string[] names = Input.GetJoystickNames ();
-
-		for (int i = 0; i < names.Length; i++) {
-			print(names[i]);
-		}
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 		player1InputXAxis = Input.GetAxis ("Horizontal");
 		player1InputYAxis = Input.GetAxis ("Vertical");
 
 		player2InputXAxis = Input.GetAxis ("Horizontal2");
 		player2InputYAxis = Input.GetAxis ("Vertical2");
-
-		//print ("horizontal " + Input.GetAxis ("Horizontal"));
-		//print ("vertical2 " + Input.GetAxis ("Vertical2"));
 	}
 
 	public float GetXInput(string player) {
