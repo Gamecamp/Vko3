@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
-	private string playerTag;
 	private Rigidbody body;
+<<<<<<< HEAD
 	private bool dashGoing;
 	private float player2DashDuration;
 	private Vector3 player2DashVector;
@@ -14,19 +14,30 @@ public class PlayerMovement : MonoBehaviour {
 	public float dashDuration;
 	public float dashMultiplier;
 
+=======
+	private Vector3 spawnPos;
+
+	public float movSpeed;
+>>>>>>> refs/remotes/origin/SimoBB
 	public PlayerInput playerInput;
 
 	// Use this for initialization
 	void Start () {
-		playerTag = gameObject.tag;
 		body = GetComponent<Rigidbody> ();
+<<<<<<< HEAD
 	
 		player2DashDuration = dashDuration;
+=======
+		spawnPos = transform.position;
+>>>>>>> refs/remotes/origin/SimoBB
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		Move (gameObject.tag, body);
+	}
 
+<<<<<<< HEAD
 		if (playerTag.Equals ("Player1")) {
 			Vector3 force = Vector3.zero;
 			/*
@@ -112,5 +123,16 @@ public class PlayerMovement : MonoBehaviour {
 
 			body.velocity = force;
 		}
+=======
+	void Move(string player, Rigidbody b) {
+		Vector3 force = Vector3.zero;
+		force = new Vector3 (playerInput.GetXInput (player), 0, playerInput.GetYInput (player)); 
+		force = force.normalized * movSpeed * Time.deltaTime;
+		b.velocity = force;
+	}
+
+	void Spawn() {
+		transform.position = spawnPos;
+>>>>>>> refs/remotes/origin/SimoBB
 	}
 }

@@ -11,6 +11,7 @@ public class PlayerInput : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+<<<<<<< HEAD
 		string[] names = Input.GetJoystickNames ();
 
 		for (int i = 0; i < names.Length; i++) {
@@ -18,21 +19,26 @@ public class PlayerInput : MonoBehaviour {
 		}
 
 		player2Dash = KeyCode.Space;
+=======
+		
+>>>>>>> refs/remotes/origin/SimoBB
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 		player1InputXAxis = Input.GetAxis ("Horizontal");
 		player1InputYAxis = Input.GetAxis ("Vertical");
 
 		player2InputXAxis = Input.GetAxis ("Horizontal2");
 		player2InputYAxis = Input.GetAxis ("Vertical2");
+<<<<<<< HEAD
 
 
 
 		//print ("horizontal " + Input.GetAxis ("Horizontal"));
 		//print ("vertical2 " + Input.GetAxis ("Vertical2"));
+=======
+>>>>>>> refs/remotes/origin/SimoBB
 	}
 
 	public float GetXInput(string player) {
