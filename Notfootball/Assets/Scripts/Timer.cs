@@ -87,6 +87,7 @@ public class Timer : MonoBehaviour {
 		} else {
 			time.text = "Game Over!";
 			gameIsOn = false;
+			playersCanMove = false;
 		}
 	}
 

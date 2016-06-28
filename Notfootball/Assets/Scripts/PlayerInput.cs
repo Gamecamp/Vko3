@@ -7,21 +7,11 @@ public class PlayerInput : MonoBehaviour {
 
 	private float player2InputXAxis;
 	private float player2InputYAxis;
-	private KeyCode player2Dash;
+	//private KeyCode player2Dash;
 
 	// Use this for initialization
 	void Start () {
-<<<<<<< HEAD
-		string[] names = Input.GetJoystickNames ();
-
-		for (int i = 0; i < names.Length; i++) {
-			print(names[i]);
-		}
-
-		player2Dash = KeyCode.Space;
-=======
-		
->>>>>>> refs/remotes/origin/SimoBB
+		//player2Dash = KeyCode ("P1Fire1");
 	}
 	
 	// Update is called once per frame
@@ -31,14 +21,6 @@ public class PlayerInput : MonoBehaviour {
 
 		player2InputXAxis = Input.GetAxis ("Horizontal2");
 		player2InputYAxis = Input.GetAxis ("Vertical2");
-<<<<<<< HEAD
-
-
-
-		//print ("horizontal " + Input.GetAxis ("Horizontal"));
-		//print ("vertical2 " + Input.GetAxis ("Vertical2"));
-=======
->>>>>>> refs/remotes/origin/SimoBB
 	}
 
 	public float GetXInput(string player) {
@@ -72,11 +54,13 @@ public class PlayerInput : MonoBehaviour {
 		bool dash = false;
 
 		if (player.Equals ("Player1")) {
-
+			if (Input.GetButton ("P1Fire1")) {
+				dash = true;
+			}
 		}
 
 		if (player.Equals ("Player2")) {
-			if (Input.GetKey (player2Dash)) {
+			if (Input.GetButton ("P2Fire1")) {
 				dash = true;
 			}
 		}
