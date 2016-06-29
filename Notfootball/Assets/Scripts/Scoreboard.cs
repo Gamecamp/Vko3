@@ -25,7 +25,6 @@ public class Scoreboard : MonoBehaviour {
 		if (playersCanMove) {
 			blueGoals++;
 			ChangeScore ();
-			GetComponent<Timer> ().StartCountdown ();
 		}
 	}
 
@@ -33,12 +32,14 @@ public class Scoreboard : MonoBehaviour {
 		if (playersCanMove) {
 			redGoals++;
 			ChangeScore ();
-			GetComponent<Timer> ().StartCountdown ();
 		}
 	}
 
 	void ChangeScore() {
 		blueScore.text = "" + blueGoals;
 		redScore.text = "" + redGoals;
+
+		GetComponent<Timer> ().StartCountdown ();
+		GameObject.Find ("GameManager").GetComponent<ResetPositions> ().ResetPosition ();
 	}
 }
