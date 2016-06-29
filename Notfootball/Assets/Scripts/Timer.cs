@@ -14,14 +14,15 @@ public class Timer : MonoBehaviour {
 	bool firstTimeInUpdate;
 	bool isCountdownTime;
 	bool playersCanMove;
+	bool gameEnded;
 
 	public int gameTime, firstCountdownTime, afterGoalCountdownTime;
 
 	// Use this for initialization
 	void Start () {
-		gameIsOn = false;
+		SetGameIsOn (false);
 		firstTimeInUpdate = true;
-		playersCanMove = false;
+		gameEnded = false;
 		time = GameObject.Find ("Time").GetComponent<Text> ();
 		countdown = GameObject.Find ("Countdown").GetComponent<Text> ();
 		StartCountdown ();
@@ -46,7 +47,7 @@ public class Timer : MonoBehaviour {
 
 			}
 
-		} else if (isCountdownTime) {
+		} else if (isCountdownTime && !gameEnded) {
 			
 			countdownTimePassed = Time.time - startCountdown;
 			countdownTimePassed = firstCountdownTime - countdownTimePassed;
@@ -63,7 +64,7 @@ public class Timer : MonoBehaviour {
 
 	void Countdown() {
 		
-		playersCanMove = false;
+		SetPlayersCanMove (false);
 		countdown.enabled = true;
 
 		if (countdownTimePassed > 1) {
@@ -71,9 +72,9 @@ public class Timer : MonoBehaviour {
 		} else if (countdownTimePassed > 0) {
 			countdown.text = "GO!";
 		} else {
-			gameIsOn = true;
-			playersCanMove = true;
+			SetGameIsOn (true);
 			countdown.enabled = false;
+			isCountdownTime = false;
 		}
 	}
 
@@ -86,9 +87,20 @@ public class Timer : MonoBehaviour {
 			time.text = "1 s";
 		} else {
 			time.text = "Game Over!";
-			gameIsOn = false;
-			playersCanMove = false;
+			SetGameIsOn (false);
 		}
+	}
+
+	void SetGameIsOn(bool gameIsOn) {
+		this.gameIsOn = gameIsOn;
+		SetPlayersCanMove (gameIsOn);
+		if (!gameIsOn) {
+			gameEnded = true;
+		}
+	}
+
+	void SetPlayersCanMove(bool playersCanMove) {
+		this.playersCanMove = playersCanMove;
 	}
 
 	public bool GetPlayersCanMove() {
