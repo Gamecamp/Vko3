@@ -25,6 +25,7 @@ public class Scoreboard : MonoBehaviour {
 		if (playersCanMove) {
 			blueGoals++;
 			ChangeScore ();
+			GameObject.Find ("Goal Signal Light Blue").GetComponent<GoalSignalLight> ().GoalScored ();
 		}
 	}
 
@@ -32,6 +33,7 @@ public class Scoreboard : MonoBehaviour {
 		if (playersCanMove) {
 			redGoals++;
 			ChangeScore ();
+			GameObject.Find ("Goal Signal Light Red").GetComponent<GoalSignalLight> ().GoalScored ();
 		}
 	}
 
