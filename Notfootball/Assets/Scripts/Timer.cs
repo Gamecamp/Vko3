@@ -15,6 +15,14 @@ public class Timer : MonoBehaviour {
 	bool isCountdownTime;
 	bool playersCanMove;
 	bool gameEnded;
+	bool resetDone;
+
+	public int countdownFontSize;
+	public int announceGoalMakerFontSize;
+
+	bool waitForRestart;
+
+	string previousGoalMaker;
 
 	public int gameTime, firstCountdownTime, afterGoalCountdownTime;
 
@@ -25,7 +33,9 @@ public class Timer : MonoBehaviour {
 		gameEnded = false;
 		time = GameObject.Find ("Time").GetComponent<Text> ();
 		countdown = GameObject.Find ("Countdown").GetComponent<Text> ();
-		StartCountdown ();
+		previousGoalMaker = "";
+		StartCountdown (previousGoalMaker);
+		waitForRestart = true;
 	}
 	
 	// Update is called once per frame
@@ -37,13 +47,21 @@ public class Timer : MonoBehaviour {
 				startTime = Time.time;
 				firstTimeInUpdate = false;
 			}
+
 			CalculateAndUpdateTime ();
 
 			if (isCountdownTime) {
 				
 				countdownTimePassed = Time.time - startCountdown;
 				countdownTimePassed = afterGoalCountdownTime - countdownTimePassed;
-				Countdown ();
+
+				if (waitForRestart) {
+					AnnounceGoalMaker ();
+				}
+	
+				if (!waitForRestart) {
+					Countdown ();
+				}
 
 			}
 
@@ -57,15 +75,39 @@ public class Timer : MonoBehaviour {
 
 	}
 
-	public void StartCountdown() {
+	public void StartCountdown(string goalMaker) {
+		previousGoalMaker = goalMaker;
+
+		if (goalMaker == "Player1" || goalMaker == "Player2") {
+			waitForRestart = true;
+		}
+
 		startCountdown = Time.time;
 		isCountdownTime = true;
+		resetDone = false;
+	}
+
+	void AnnounceGoalMaker() {
+		countdown.enabled = true;
+		countdown.fontSize = announceGoalMakerFontSize;
+		countdown.text = previousGoalMaker + " scored!";
+
+		if (countdownTimePassed <= 0.2f) {
+			startCountdown = Time.time;
+			waitForRestart = false;
+		}
 	}
 
 	void Countdown() {
-		
+		if (!resetDone) {
+			GameObject.Find ("GameManager").GetComponent<ResetPositions> ().ResetPosition ();
+			resetDone = true;
+		}
+
 		SetPlayersCanMove (false);
 		countdown.enabled = true;
+		countdown.fontSize = countdownFontSize;
+
 
 		if (countdownTimePassed > 1) {
 			countdown.text = countdownTimePassed.ToString ("####");
