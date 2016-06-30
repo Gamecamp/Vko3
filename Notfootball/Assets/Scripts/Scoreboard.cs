@@ -8,12 +8,17 @@ public class Scoreboard : MonoBehaviour {
 	int blueGoals, redGoals;
 	bool playersCanMove;
 
+	string redPlayer;
+	string bluePlayer;
+
 	// Use this for initialization
 	void Start () {
 		blueScore = GameObject.Find ("Blue Team Score").GetComponent<Text>();
 		redScore = GameObject.Find ("Red Team Score").GetComponent<Text>();
 		blueGoals = 0;
 		redGoals = 0;
+		bluePlayer = "Player1";
+		redPlayer = "Player2";
 	}
 	
 	// Update is called once per frame
@@ -24,22 +29,21 @@ public class Scoreboard : MonoBehaviour {
 	public void BlueTeamScores() {
 		if (playersCanMove) {
 			blueGoals++;
-			ChangeScore ();
+			ChangeScore (bluePlayer);
 		}
 	}
 
 	public void RedTeamScores() {
 		if (playersCanMove) {
 			redGoals++;
-			ChangeScore ();
+			ChangeScore (redPlayer);
 		}
 	}
 
-	void ChangeScore() {
+	void ChangeScore(string playerWhoScored) {
 		blueScore.text = "" + blueGoals;
 		redScore.text = "" + redGoals;
 
-		GetComponent<Timer> ().StartCountdown ();
-		GameObject.Find ("GameManager").GetComponent<ResetPositions> ().ResetPosition ();
+		GetComponent<Timer> ().StartCountdown (playerWhoScored);
 	}
 }
