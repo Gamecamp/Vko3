@@ -37,5 +37,7 @@ public class ResetPositions : MonoBehaviour {
 		player1.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
 		player2.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		player2.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
+		player1.transform.rotation = Quaternion.LookRotation (new Vector3 (-1, 0, 0));
+		player2.transform.rotation = Quaternion.LookRotation (new Vector3 (1, 0, 0));
 	}
 }

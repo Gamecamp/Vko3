@@ -57,6 +57,7 @@ public class Timer : MonoBehaviour {
 
 				if (waitForRestart) {
 					AnnounceGoalMaker ();
+					SetPlayersCanMove (false);
 				}
 	
 				if (!waitForRestart) {
@@ -141,7 +142,7 @@ public class Timer : MonoBehaviour {
 		}
 	}
 
-	void SetPlayersCanMove(bool playersCanMove) {
+	public void SetPlayersCanMove(bool playersCanMove) {
 		this.playersCanMove = playersCanMove;
 	}
 
