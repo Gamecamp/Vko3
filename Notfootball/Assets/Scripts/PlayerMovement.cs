@@ -6,26 +6,18 @@ public class PlayerMovement : MonoBehaviour {
 	private bool dashGoing;
 	private float playerRemainingDashDuration;
 	private Vector3 dashVector;
-
-
+	private Timer timer;
+	private Vector3 force;
 	public float movSpeed;
 
 	public float dashDuration;
 	public float dashMultiplier;
-
-	private Vector3 spawnPos;
-
 	public PlayerInput playerInput;
-
-	private Timer timer;
 
 	// Use this for initialization
 	void Start () {
 		body = GetComponent<Rigidbody> ();
-	
 		playerRemainingDashDuration = dashDuration;
-		spawnPos = transform.position;
-
 		timer = GameObject.Find ("Canvas").GetComponent<Timer> ();
 	}
 	
@@ -37,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Move(string player, Rigidbody b) {
-		Vector3 force = Vector3.zero;
+		force = Vector3.zero;
 
 		if (!dashGoing) {
 			force = new Vector3 (playerInput.GetXInput (player), 0, playerInput.GetYInput (player)); 
@@ -50,8 +42,7 @@ public class PlayerMovement : MonoBehaviour {
 			dashVector = force * dashMultiplier;
 			dashGoing = true;
 		}
-
-
+			
 		if (dashGoing) {
 			playerRemainingDashDuration = playerRemainingDashDuration - 0.1f;
 			force = force * dashMultiplier;
@@ -61,12 +52,21 @@ public class PlayerMovement : MonoBehaviour {
 				playerRemainingDashDuration = dashDuration;
 			}
 		}
-
+			
 		force.y = b.velocity.y;
 		b.velocity = force;
+
+		if (force != Vector3.zero) {
+			force = new Vector3 (force.x, 0, force.z);
+			transform.rotation = Quaternion.LookRotation (force.normalized);
+		}
 	}
 
-	void Spawn() {
-		transform.position = spawnPos;
+	public Vector3 getForce() {
+		return force;
+	}
+
+	public bool getDashGoing() {
+		return dashGoing;
 	}
 }
