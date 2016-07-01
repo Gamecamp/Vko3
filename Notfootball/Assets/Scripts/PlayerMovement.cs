@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	public float dashDuration;
 	public float dashMultiplier;
+	public float dashCooldown;
+	private float dashStart;
 	public PlayerInput playerInput;
 
 	// Use this for initialization
@@ -20,6 +22,7 @@ public class PlayerMovement : MonoBehaviour {
 		body = GetComponent<Rigidbody> ();
 		playerRemainingDashDuration = dashDuration;
 		timer = GameObject.Find ("Canvas").GetComponent<Timer> ();
+		dashStart = 0;
 	}
 	
 	// Update is called once per frame
@@ -42,9 +45,10 @@ public class PlayerMovement : MonoBehaviour {
 			force = dashVector;
 		}
 
-		if (playerInput.GetDash (gameObject.tag) == true && !dashGoing) {
+		if (playerInput.GetDash (gameObject.tag) == true && !dashGoing && Time.time > dashStart + dashCooldown) {
 			dashVector = force * dashMultiplier;
 			dashGoing = true;
+			dashStart = Time.time;
 		}
 			
 		if (dashGoing) {
