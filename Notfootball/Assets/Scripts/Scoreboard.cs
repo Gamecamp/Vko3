@@ -17,8 +17,8 @@ public class Scoreboard : MonoBehaviour {
 		redScore = GameObject.Find ("Red Team Score").GetComponent<Text>();
 		blueGoals = 0;
 		redGoals = 0;
-		bluePlayer = "Player1";
-		redPlayer = "Player2";
+		bluePlayer = "Brown turtle";
+		redPlayer = "Green turtle";
 	}
 	
 	// Update is called once per frame
@@ -47,5 +47,13 @@ public class Scoreboard : MonoBehaviour {
 		redScore.text = "" + redGoals;
 
 		GetComponent<Timer> ().StartCountdown (playerWhoScored);
+	}
+
+	public int GetBlueGoals() {
+		return blueGoals;
+	}
+
+	public int GetRedGoals() {
+		return redGoals;
 	}
 }
