@@ -8,9 +8,10 @@ public class PlayerMovement : MonoBehaviour {
 	private Vector3 dashVector;
 	private Timer timer;
 	private Vector3 force;
+	private Light dashCD;
+
 	public float movSpeed;
 	public float jumpPower;
-
 	public float dashDuration;
 	public float dashMultiplier;
 	public float dashCooldown;
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour {
 		playerRemainingDashDuration = dashDuration;
 		timer = GameObject.Find ("Canvas").GetComponent<Timer> ();
 		dashStart = 0;
+		dashCD = GetComponentInChildren<Light> ();
 	}
 	
 	// Update is called once per frame
@@ -49,6 +51,11 @@ public class PlayerMovement : MonoBehaviour {
 			dashVector = force * dashMultiplier;
 			dashGoing = true;
 			dashStart = Time.time;
+			dashCD.enabled = false;
+		}
+
+		if (Time.time > dashStart + dashCooldown) {
+			dashCD.enabled = true;
 		}
 			
 		if (dashGoing) {
