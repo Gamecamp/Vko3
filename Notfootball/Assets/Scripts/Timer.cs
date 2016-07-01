@@ -26,6 +26,12 @@ public class Timer : MonoBehaviour {
 
 	public int gameTime, firstCountdownTime, afterGoalCountdownTime;
 
+	private StoreMatchLength matchLength;
+
+	Button backToMenu;
+
+	Scoreboard score;
+
 	// Use this for initialization
 	void Start () {
 		SetGameIsOn (false);
@@ -36,6 +42,11 @@ public class Timer : MonoBehaviour {
 		previousGoalMaker = "";
 		StartCountdown (previousGoalMaker);
 		waitForRestart = true;
+		gameTime = (int)GameObject.Find ("MatchLengthRemember").GetComponent<StoreMatchLength> ().GetMatchLength ();
+		backToMenu = GameObject.Find ("Button").GetComponent<Button>();
+		backToMenu.gameObject.SetActive (false);
+		score = GetComponent<Scoreboard> ();
+
 	}
 	
 	// Update is called once per frame
@@ -129,10 +140,13 @@ public class Timer : MonoBehaviour {
 		} else if (timePassed > 0) {
 			time.text = "1 s";
 		} else {
-			time.text = "Game Over!";
+			backToMenu.gameObject.SetActive (true);
+			time.text = "Game over!";
 			SetGameIsOn (false);
 		}
 	}
+		
+
 
 	void SetGameIsOn(bool gameIsOn) {
 		this.gameIsOn = gameIsOn;
