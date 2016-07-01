@@ -67,4 +67,23 @@ public class PlayerInput : MonoBehaviour {
 
 		return dash;
 	}
+
+	public bool GetJump(string player) {
+		
+		bool jump = false;
+
+		if (player.Equals ("Player1")) {
+			if (Input.GetButton ("P1Jump")) {
+				jump = true;
+			}
+		}
+
+		if (player.Equals ("Player2")) {
+			if (Input.GetButton ("P2Jump")) {
+				jump = true;
+			}
+		}
+
+		return jump;
+	}
 }

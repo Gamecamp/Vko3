@@ -72,6 +72,8 @@ public class Timer : MonoBehaviour {
 			countdownTimePassed = firstCountdownTime - countdownTimePassed;
 			Countdown ();
 		
+		} else if (gameEnded) {
+			AnnounceWinner ();
 		}
 
 	}
@@ -79,7 +81,7 @@ public class Timer : MonoBehaviour {
 	public void StartCountdown(string goalMaker) {
 		previousGoalMaker = goalMaker;
 
-		if (goalMaker == "Player1" || goalMaker == "Player2") {
+		if (goalMaker == "Green turtle" || goalMaker == "Brown turtle") {
 			waitForRestart = true;
 		}
 
@@ -97,6 +99,20 @@ public class Timer : MonoBehaviour {
 			startCountdown = Time.time;
 			waitForRestart = false;
 		}
+	}
+
+	void AnnounceWinner() {
+		countdown.enabled = true;
+		countdown.fontSize = announceGoalMakerFontSize;
+		string winner;
+		if (GetComponent<Scoreboard> ().GetBlueGoals () > GetComponent<Scoreboard> ().GetRedGoals ()) {
+			winner = "Brown turtle wins!";
+		} else if (GetComponent<Scoreboard> ().GetBlueGoals () < GetComponent<Scoreboard> ().GetRedGoals ()) {
+			winner = "Green turtle wins!";
+		} else {
+			winner = "It's a draw!";
+		}
+		countdown.text = winner;
 	}
 
 	void Countdown() {

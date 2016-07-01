@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
 	private Timer timer;
 	private Vector3 force;
 	public float movSpeed;
+	public float jumpPower;
 
 	public float dashDuration;
 	public float dashMultiplier;
@@ -33,6 +34,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (!dashGoing) {
 			force = new Vector3 (playerInput.GetXInput (player), 0, playerInput.GetYInput (player)); 
+			if (playerInput.GetJump (gameObject.tag) && GetComponent<GroundCheck>().GetIsGrounded()) {
+				b.AddForce (new Vector3 (0, jumpPower, 0));
+			}
 			force = force.normalized * movSpeed * Time.deltaTime;
 		} else {
 			force = dashVector;
